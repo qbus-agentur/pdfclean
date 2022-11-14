@@ -28,9 +28,9 @@ use TYPO3\CMS\Install\Updates\Confirmation;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
 /**
- * Class SanitizeExistingSVG
+ * Class CleanExistingPDF
  */
-class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterface
+class CleanExistingPDF implements UpgradeWizardInterface, ConfirmableInterface
 {
     protected $confirmation;
 
@@ -55,7 +55,7 @@ class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterfac
     public function getIdentifier(): string
     {
         // this is the origin class name to prevent trouble with class renaming
-        return 'Qbus\Pdfclean\Updates\SanitizeExistingSVG';
+        return 'Qbus\Pdfclean\Updates\CleanExistingPNG';
     }
 
     /**
@@ -65,7 +65,7 @@ class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterfac
      */
     public function getTitle(): string
     {
-        return '[EXT:pdfclean] Scan and sanitize existing SVG files in fileadmin folder';
+        return '[EXT:pdfclean] Scan and clean existing PDF files in fileadmin folder';
     }
 
     /**
@@ -75,9 +75,9 @@ class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterfac
      */
     public function getDescription(): string
     {
-        return 'This upgrade wizard will sanitize all SVG file in the fileadmin folder.'
-            . ' This means that the content of your SVG files will be changed. This automatic process can break your SVG files.'
-            . ' PLEASE: Create a backup of your SVG files, before starting this wizard!'
+        return 'This upgrade wizard will sanitize all PDF file in the fileadmin folder.'
+            . ' This means that the content of your PDF files will be changed. This automatic process can break your PDF files.'
+            . ' PLEASE: Create a backup of your PDF files, before starting this wizard!'
             . ' Are you really sure, you want to do this now?';
     }
 

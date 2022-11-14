@@ -23,13 +23,8 @@ call_user_func(function () {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Core\Utility\GeneralUtility']['moveUploadedFile'][]
         = \Qbus\Pdfclean\Hooks\GeneralUtilityHook::class . '->processMoveUploadedFile';
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\Pdfclean\Updates\SanitizeExistingSVG']
-        = \Qbus\Pdfclean\Updates\v8\SanitizeExistingSVG::class;
-
-    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) >= 9005000) {
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\Pdfclean\Updates\SanitizeExistingSVG']
-            = \Qbus\Pdfclean\Updates\v9\SanitizeExistingSVG::class;
-    }
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\Pdfclean\Updates\CleanExistingPDF']
+        = \Qbus\Pdfclean\Updates\CleanExistingPDF::class;
 
     // The following hooks have been removed with v10:
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processUpload']['pdfclean']
