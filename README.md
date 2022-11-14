@@ -12,11 +12,14 @@ It requires exiftool and qpdf command line utilities to be available:
 
     vendor/bin/typo3 extension:activate nginx_cache
 
+    # ddev
+    ddev config --webimage-extra-packages=libimage-exiftool-perl,qpdf
+
     # Fedora (RPM)
     sudo dnf install perl-Image-ExifTool qpdf
 
     # Debian (dpkg)
-    sudo apt install exiftool qpdf
+    sudo apt install libimage-exiftool-perl qpdf
 
 
 ## What this extension does
