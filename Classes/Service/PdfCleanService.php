@@ -93,11 +93,14 @@ class PdfCleanService
             $outputFileNameAndPath = $fileNameAndPath;
         }
 
-        $intermediateFile = GeneralUtility::tempnam('pdf_clean_');
+        $intermediateFile = GeneralUtility::tempnam('pdf_intermediate_');
+        $cleanedFile = GeneralUtility::tempnam('pdf_cleaned_');
 
-        $this->run('exiftool -all= -Author= -tagsfromfile @ -title -keywords -subject -description %s -o %s', $fileNameAndPath, $intermediateFile);
-        $this->run('qpdf --linearize %s %s', $intermediate, $outputFileNameAndPath);
+        $this->run('exiftool -all= -Author= -tagsfromfile @ -title -keywords -subject -description %s -o - > %s', $fileNameAndPath, $intermediateFile);
+        $this->run('qpdf --linearize %s %s', $intermediateFile, $cleanedFile);
+        $this->run('cp -f %s %s', $cleanedFile, $outputFileNameAndPath);
         GeneralUtility::unlink_tempfile($intermediateFile);
+        GeneralUtility::unlink_tempfile($cleanedFile);
     }
 
     /**
