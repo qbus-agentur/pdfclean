@@ -40,8 +40,8 @@ class CleanExistingPDF implements UpgradeWizardInterface, ConfirmableInterface
             'Are you really sure?',
             $this->getDescription(),
             false,
-            'yes, please sanitize',
-            'no, don\'t sanitize',
+            'yes, please clean',
+            'no, don\'t clean',
             false
         );
     }
@@ -75,7 +75,7 @@ class CleanExistingPDF implements UpgradeWizardInterface, ConfirmableInterface
      */
     public function getDescription(): string
     {
-        return 'This upgrade wizard will sanitize all PDF file in the fileadmin folder.'
+        return 'This upgrade wizard will clean metadata in all PDF files in the fileadmin folder.'
             . ' This means that the content of your PDF files will be changed. This automatic process can break your PDF files.'
             . ' PLEASE: Create a backup of your PDF files, before starting this wizard!'
             . ' Are you really sure, you want to do this now?';
