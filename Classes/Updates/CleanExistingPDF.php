@@ -6,7 +6,7 @@
  * LICENSE file that was distributed with this source code.
  */
 
-namespace Qbus\Pdfclean\Updates\v9;
+namespace Qbus\Pdfclean\Updates;
 
 /*
  * This file is part of the TYPO3 extension pdfclean.
