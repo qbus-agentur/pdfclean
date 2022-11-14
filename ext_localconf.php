@@ -21,7 +21,7 @@ call_user_func(function () {
 
     // The following hooks/signal have been deprecated in 10.2 and removed with v11:
     // As a replacement for the deprecated signals according PSR-14 events have been added, see Configuration/Services.yaml.
-    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) < 1002000) {
+    if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) < 10002000) {
         $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
         $signalSlotDispatcher
             ->connect(
