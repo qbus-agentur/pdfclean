@@ -42,16 +42,16 @@ class UpdateService
         $resourceFactory = ResourceFactory::getInstance();
         foreach ($rows as $row) {
             $filter = GeneralUtility::makeInstance(FileExtensionFilter::class);
-            $filter->setAllowedFileExtensions(['svg']);
+            $filter->setAllowedFileExtensions(['pdf']);
 
             $storage = $resourceFactory->getStorageObject((int)$row['uid']);
             $storage->setFileAndFolderNameFilters([[$filter, 'filterFileList']]);
             $files = $storage->getFilesInFolder($storage->getRootLevelFolder(), 0, 0, true, true);
 
-            $svgSanitizerService = GeneralUtility::makeInstance(PdfCleanService::class);
+            $pdfSanitizerService = GeneralUtility::makeInstance(PdfCleanService::class);
             foreach ($files as $file) {
                 $oldFileContent = $file->getContents();
-                $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgContent($oldFileContent);
+                $newFileContent = $pdfSanitizerService->sanitizeAndReturnPdfContent($oldFileContent);
                 if ($oldFileContent !== $newFileContent) {
                     $file->setContents($newFileContent);
                 }

@@ -44,9 +44,9 @@ class ResourceStorage
      */
     public function preFileAdd(&$targetFileName, $targetFolder, $sourceFilePath, $parentObject, $driver)
     {
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($sourceFilePath)) {
-            $svgService->sanitizeSvgFile($sourceFilePath);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($sourceFilePath)) {
+            $pdfService->sanitizePdfFile($sourceFilePath);
         }
     }
 
@@ -58,9 +58,9 @@ class ResourceStorage
      */
     public function preFileReplace($file, $localFilePath)
     {
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($localFilePath)) {
-            $svgService->sanitizeSvgFile($localFilePath);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($localFilePath)) {
+            $pdfService->sanitizePdfFile($localFilePath);
         }
     }
 
@@ -72,9 +72,9 @@ class ResourceStorage
      */
     public function postFileSetContents($file, $content)
     {
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($file->getForLocalProcessing(false))) {
-            $newContent = $svgService->sanitizeAndReturnSvgContent($content);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($file->getForLocalProcessing(false))) {
+            $newContent = $pdfService->sanitizeAndReturnPdfContent($content);
             // prevent endless loop because this hook is called again and again and again and...
             if ($newContent !== $content) {
                 $file->setContents($newContent);

@@ -46,9 +46,9 @@ class GeneralUtilityHook
     public function processMoveUploadedFile(array &$params, &$ref)
     {
         $filename = $params['source'];
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($filename)) {
-            $svgService->sanitizeSvgFile($filename);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($filename)) {
+            $pdfService->sanitizePdfFile($filename);
         }
     }
 }

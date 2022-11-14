@@ -5,17 +5,6 @@ if (!defined('TYPO3_MODE')) {
 }
 
 call_user_func(function () {
-    /*
-     * SVG sanitizer has been introduced to TYPO3 core
-     * see https://review.typo3.org/c/Packages/TYPO3.CMS/+/69809
-     *
-     * skip hook registration (and handling by this extension in general)
-     * in case corresponding handling class in TYPO3 core is available
-     */
-    if (class_exists(\TYPO3\CMS\Core\Resource\Security\Pdfclean::class)) {
-        return;
-    }
-
     $typo3Version = (defined('TYPO3_version'))
         ? TYPO3_version
         : \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Information\Typo3Version::class)->getVersion();
@@ -26,12 +15,12 @@ call_user_func(function () {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\Pdfclean\Updates\CleanExistingPDF']
         = \Qbus\Pdfclean\Updates\CleanExistingPDF::class;
 
-    // The following hooks have been removed with v10:
+    // The following hook has been removed with v10:
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processUpload']['pdfclean']
         = \Qbus\Pdfclean\Hooks\DataHandlerHook::class;
 
     // The following hooks/signal have been deprecated in 10.2 and removed with v11:
-    // As a replacement for the deprecated signals we introduced the according PSR-14 events.
+    // As a replacement for the deprecated signals according PSR-14 events have been added, see Configuration/Services.yaml.
     if (\TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger($typo3Version) < 1002000) {
         $signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
         $signalSlotDispatcher

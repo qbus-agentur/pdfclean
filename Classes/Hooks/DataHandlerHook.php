@@ -42,9 +42,9 @@ class DataHandlerHook implements DataHandlerProcessUploadHookInterface
      */
     public function processUpload_postProcessAction(&$filename, DataHandler $parentObject)
     {
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($filename)) {
-            $svgService->sanitizeSvgFile($filename);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($filename)) {
+            $pdfService->sanitizePdfFile($filename);
         }
     }
 }

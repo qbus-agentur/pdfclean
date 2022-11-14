@@ -21,7 +21,7 @@ namespace Qbus\Pdfclean\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
-use enshrined\svgSanitize\Sanitizer;
+use enshrined\pdfSanitize\Sanitizer;
 use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -31,17 +31,17 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PdfCleanService
 {
-    protected $possibleMimeTypes = ['image/svg', 'image/svg+xml', 'application/svg', 'application/svg+xml'];
+    protected $possibleMimeTypes = ['application/pdf'];
 
     /**
      * @param string $fileNameAndPath
      * @return bool
      * @throws \InvalidArgumentException
      */
-    public function isSvgFile($fileNameAndPath)
+    public function isPdfFile($fileNameAndPath)
     {
         $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $fileNameAndPath);
-        return $fileInfo->getExtension() === 'svg'
+        return $fileInfo->getExtension() === 'pdf'
             || \in_array(strtolower($fileInfo->getMimeType()), $this->possibleMimeTypes, true);
     }
 
@@ -50,32 +50,32 @@ class PdfCleanService
      * @param string $outputFileNameAndPath
      * @throws \BadFunctionCallException
      */
-    public function sanitizeSvgFile($fileNameAndPath, $outputFileNameAndPath = null)
+    public function sanitizePdfFile($fileNameAndPath, $outputFileNameAndPath = null)
     {
         if ($outputFileNameAndPath === null) {
             $outputFileNameAndPath = $fileNameAndPath;
         }
-        $dirtySVG = file_get_contents($fileNameAndPath);
-        $cleanSVG = $this->sanitizeAndReturnSvgContent($dirtySVG);
-        if ($cleanSVG !== $dirtySVG) {
-            file_put_contents($outputFileNameAndPath, $cleanSVG);
+        $dirtyPDF = file_get_contents($fileNameAndPath);
+        $cleanPDF = $this->sanitizeAndReturnPdfContent($dirtyPDF);
+        if ($cleanPDF !== $dirtyPDF) {
+            file_put_contents($outputFileNameAndPath, $cleanPDF);
         }
     }
 
     /**
-     * @param string $dirtySVG
+     * @param string $dirtyPDF
      *
      * @return string
      * @throws \BadFunctionCallException
      */
-    public function sanitizeAndReturnSvgContent($dirtySVG)
+    public function sanitizeAndReturnPdfContent($dirtyPDF)
     {
         $extensionBasePath = ExtensionManagementUtility::extPath('pdfclean');
         if (!class_exists(Sanitizer::class)) {
-            @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
+            @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-pdf-sanitize.phar/vendor/autoload.php';
         }
         $sanitizer = new Sanitizer();
         $sanitizer->removeRemoteReferences(true);
-        return $sanitizer->sanitize($dirtySVG);
+        return $sanitizer->sanitize($dirtyPDF);
     }
 }

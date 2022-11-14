@@ -33,18 +33,18 @@ class ResourceStorageListener
     public function beforeFileAdded(BeforeFileAddedEvent $event)
     {
         $sourceFilePath = $event->getSourceFilePath();
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($sourceFilePath)) {
-            $svgService->sanitizeSvgFile($sourceFilePath);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($sourceFilePath)) {
+            $pdfService->sanitizePdfFile($sourceFilePath);
         }
     }
 
     public function beforeFileReplaced(BeforeFileReplacedEvent $event)
     {
         $localFilePath = $event->getLocalFilePath();
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($localFilePath)) {
-            $svgService->sanitizeSvgFile($localFilePath);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($localFilePath)) {
+            $pdfService->sanitizePdfFile($localFilePath);
         }
     }
 
@@ -52,9 +52,9 @@ class ResourceStorageListener
     {
         $file = $event->getFile();
         $content = $event->getContent();
-        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
-        if ($svgService->isSvgFile($file->getForLocalProcessing(false))) {
-            $newContent = $svgService->sanitizeAndReturnSvgContent($content);
+        $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
+        if ($pdfService->isPdfFile($file->getForLocalProcessing(false))) {
+            $newContent = $pdfService->sanitizeAndReturnPdfContent($content);
             // prevent endless loop because this hook is called again and again and again and...
             if ($newContent !== $content) {
                 $file->setContents($newContent);
