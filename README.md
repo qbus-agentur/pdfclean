@@ -8,18 +8,17 @@ Please read the following section carefully for all details.
 This extension removes all metadata information in uploaded PDF files.
 It requires exiftool and qpdf command line utilities to be available:
 
-.. code-block:: bash
 
-    vendor/bin/typo3 extension:activate nginx_cache
+```sh
+# ddev
+ddev config --webimage-extra-packages=libimage-exiftool-perl,qpdf
 
-    # ddev
-    ddev config --webimage-extra-packages=libimage-exiftool-perl,qpdf
+# Fedora (RPM)
+sudo dnf install perl-Image-ExifTool qpdf
 
-    # Fedora (RPM)
-    sudo dnf install perl-Image-ExifTool qpdf
-
-    # Debian (dpkg)
-    sudo apt install libimage-exiftool-perl qpdf
+# Debian (dpkg)
+sudo apt install libimage-exiftool-perl qpdf
+```
 
 
 ## What this extension does
@@ -38,4 +37,6 @@ For example, if a third-party extension allows to upload files and does not use 
 
 ## Credits
 
-Thanks to the TYPO3 GmbH and their [t3g/svg-sanitizer](https://github.com/TYPO3GmbH/svg_sanitizer) extension which was the technical basis for this extension.
+Thanks to the TYPO3 GmbH and their
+[t3g/svg-sanitizer](https://github.com/TYPO3GmbH/svg_sanitizer) extension which
+provided the technical basis for this extension.

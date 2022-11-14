@@ -53,6 +53,7 @@ class PdfCleanService
             {
                 error_log('[' . $level . '] ' . $this->interpolate($message, $context));
             }
+
             private function interpolate($message, array $context = array())
             {
                 // build a replacement array with braces around the context keys
