@@ -51,7 +51,7 @@ class UpdateService
             $pdfSanitizerService = GeneralUtility::makeInstance(PdfCleanService::class);
             foreach ($files as $file) {
                 $oldFileContent = $file->getContents();
-                $newFileContent = $pdfSanitizerService->sanitizeAndReturnPdfContent($oldFileContent);
+                $newFileContent = $pdfSanitizerService->cleanAndReturnPdfContent($oldFileContent);
                 if ($oldFileContent !== $newFileContent) {
                     $file->setContents($newFileContent);
                 }

@@ -48,7 +48,7 @@ class GeneralUtilityHook
         $filename = $params['source'];
         $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($pdfService->isPdfFile($filename)) {
-            $pdfService->sanitizePdfFile($filename);
+            $pdfService->cleanPdfFile($filename);
         }
     }
 }

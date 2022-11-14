@@ -46,7 +46,7 @@ class ResourceStorage
     {
         $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($pdfService->isPdfFile($sourceFilePath)) {
-            $pdfService->sanitizePdfFile($sourceFilePath);
+            $pdfService->cleanPdfFile($sourceFilePath);
         }
     }
 
@@ -60,7 +60,7 @@ class ResourceStorage
     {
         $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($pdfService->isPdfFile($localFilePath)) {
-            $pdfService->sanitizePdfFile($localFilePath);
+            $pdfService->cleanPdfFile($localFilePath);
         }
     }
 
@@ -74,7 +74,7 @@ class ResourceStorage
     {
         $pdfService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($pdfService->isPdfFile($file->getForLocalProcessing(false))) {
-            $newContent = $pdfService->sanitizeAndReturnPdfContent($content);
+            $newContent = $pdfService->cleanAndReturnPdfContent($content);
             // prevent endless loop because this hook is called again and again and again and...
             if ($newContent !== $content) {
                 $file->setContents($newContent);

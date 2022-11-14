@@ -50,7 +50,7 @@ class PdfCleanService
      * @param string $outputFileNameAndPath
      * @throws \BadFunctionCallException
      */
-    public function sanitizePdfFile($fileNameAndPath, $outputFileNameAndPath = null)
+    public function cleanPdfFile($fileNameAndPath, $outputFileNameAndPath = null)
     {
         if ($outputFileNameAndPath === null) {
             $outputFileNameAndPath = $fileNameAndPath;
@@ -68,11 +68,11 @@ class PdfCleanService
      * @return string
      * @throws \BadFunctionCallException
      */
-    public function sanitizeAndReturnPdfContent($dirtyPDF)
+    public function cleanAndReturnPdfContent($dirtyPDF)
     {
         $tmpFile = GeneralUtility::tempnam('pdf_clean_tmp_');
         file_put_contents($tmpFile, $dirtyPDF);
-        $this->sanitizePdfFile($tmpFile);
+        $this->cleanPdfFile($tmpFile);
         $cleanedPDF = file_get_contents($tmpFile);
         GeneralUtility::unlink_tempfile($tmpFile);
 
