@@ -21,7 +21,6 @@ namespace Qbus\Pdfclean\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
-use enshrined\pdfSanitize\Sanitizer;
 use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -58,7 +57,7 @@ class PdfCleanService
 
         $intermediateFile = GeneralUtility::tempnam('pdf_clean_');
 
-        $this->run('exiftool -all= -Author='' -tagsfromfile @ -title -keywords -subject -description %s -o %s', $fileNameAndPath, $intermediate);
+        $this->run('exiftool -all= -Author= -tagsfromfile @ -title -keywords -subject -description %s -o %s', $fileNameAndPath, $intermediateFile);
         $this->run('qpdf --linearize %s %s', $intermediate, $outputFileNameAndPath);
         GeneralUtility::unlink_tempfile($intermediateFile);
     }
