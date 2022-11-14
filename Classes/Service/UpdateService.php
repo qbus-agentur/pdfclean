@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Service;
+namespace Qbus\Pdfclean\Service;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -48,7 +48,7 @@ class UpdateService
             $storage->setFileAndFolderNameFilters([[$filter, 'filterFileList']]);
             $files = $storage->getFilesInFolder($storage->getRootLevelFolder(), 0, 0, true, true);
 
-            $svgSanitizerService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+            $svgSanitizerService = GeneralUtility::makeInstance(PdfCleanService::class);
             foreach ($files as $file) {
                 $oldFileContent = $file->getContents();
                 $newFileContent = $svgSanitizerService->sanitizeAndReturnSvgContent($oldFileContent);

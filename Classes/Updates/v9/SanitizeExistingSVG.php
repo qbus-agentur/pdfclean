@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Updates\v9;
+namespace Qbus\Pdfclean\Updates\v9;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -21,7 +21,7 @@ namespace T3G\SvgSanitizer\Updates\v9;
  * The TYPO3 project - inspiring people to share!
  */
 
-use T3G\SvgSanitizer\Service\UpdateService;
+use Qbus\Pdfclean\Service\UpdateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\ConfirmableInterface;
 use TYPO3\CMS\Install\Updates\Confirmation;
@@ -55,7 +55,7 @@ class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterfac
     public function getIdentifier(): string
     {
         // this is the origin class name to prevent trouble with class renaming
-        return 'T3G\SvgSanitizer\Updates\SanitizeExistingSVG';
+        return 'Qbus\Pdfclean\Updates\SanitizeExistingSVG';
     }
 
     /**
@@ -65,7 +65,7 @@ class SanitizeExistingSVG implements UpgradeWizardInterface, ConfirmableInterfac
      */
     public function getTitle(): string
     {
-        return '[EXT:svg_sanitizer] Scan and sanitize existing SVG files in fileadmin folder';
+        return '[EXT:pdfclean] Scan and sanitize existing SVG files in fileadmin folder';
     }
 
     /**

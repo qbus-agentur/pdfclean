@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Hooks;
+namespace Qbus\Pdfclean\Hooks;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -21,7 +21,7 @@ namespace T3G\SvgSanitizer\Hooks;
  * The TYPO3 project - inspiring people to share!
  */
 
-use T3G\SvgSanitizer\Service\SvgSanitizerService;
+use Qbus\Pdfclean\Service\PdfCleanService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\DataHandling\DataHandlerProcessUploadHookInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -42,7 +42,7 @@ class DataHandlerHook implements DataHandlerProcessUploadHookInterface
      */
     public function processUpload_postProcessAction(&$filename, DataHandler $parentObject)
     {
-        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($svgService->isSvgFile($filename)) {
             $svgService->sanitizeSvgFile($filename);
         }

@@ -44,13 +44,13 @@ jobs:
           git checkout composer.json
 
       - name: CGL
-        run: composer t3g:cgl
+        run: composer qbus:cgl
 
       - name: Lint PHP
-        run: composer t3g:test:php:lint
+        run: composer qbus:test:php:lint
 
       - name: Functional Tests
-        run: composer t3g:test:php:functional
+        run: composer qbus:test:php:functional
         env:
           COMPOSER_PROCESS_TIMEOUT: 1200
           typo3DatabaseHost: 127.0.0.1

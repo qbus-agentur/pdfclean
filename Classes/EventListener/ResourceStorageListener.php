@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\EventListener;
+namespace Qbus\Pdfclean\EventListener;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -21,7 +21,7 @@ namespace T3G\SvgSanitizer\EventListener;
  * The TYPO3 project - inspiring people to share!
  */
 
-use T3G\SvgSanitizer\Service\SvgSanitizerService;
+use Qbus\Pdfclean\Service\PdfCleanService;
 use TYPO3\CMS\Core\Resource\Event\AfterFileContentsSetEvent;
 use TYPO3\CMS\Core\Resource\Event\BeforeFileAddedEvent;
 use TYPO3\CMS\Core\Resource\Event\BeforeFileReplacedEvent;
@@ -33,7 +33,7 @@ class ResourceStorageListener
     public function beforeFileAdded(BeforeFileAddedEvent $event)
     {
         $sourceFilePath = $event->getSourceFilePath();
-        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($svgService->isSvgFile($sourceFilePath)) {
             $svgService->sanitizeSvgFile($sourceFilePath);
         }
@@ -42,7 +42,7 @@ class ResourceStorageListener
     public function beforeFileReplaced(BeforeFileReplacedEvent $event)
     {
         $localFilePath = $event->getLocalFilePath();
-        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($svgService->isSvgFile($localFilePath)) {
             $svgService->sanitizeSvgFile($localFilePath);
         }
@@ -52,7 +52,7 @@ class ResourceStorageListener
     {
         $file = $event->getFile();
         $content = $event->getContent();
-        $svgService = GeneralUtility::makeInstance(SvgSanitizerService::class);
+        $svgService = GeneralUtility::makeInstance(PdfCleanService::class);
         if ($svgService->isSvgFile($file->getForLocalProcessing(false))) {
             $newContent = $svgService->sanitizeAndReturnSvgContent($content);
             // prevent endless loop because this hook is called again and again and again and...

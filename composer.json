@@ -1,30 +1,21 @@
 {
-    "name": "t3g/svg-sanitizer",
+    "name": "qbus/pdfclean",
     "type": "typo3-cms-extension",
-    "description": "Sanitize SVG files on upload",
+    "description": "Clean meta data in PDF files on upload",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "TYPO3 GmbH",
-            "homepage": "https://typo3.com/",
-            "role": "Developer"
-        },
-        {
-            "name": "Frank Nägler",
-            "homepage": "https://naegler.hamburg/",
+            "name": "Qbus Internetagentur GmbH",
+            "homepage": "https://qbus.de",
             "role": "Developer"
         }
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "enshrined/svg-sanitize": "^0.14",
-        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev",
-        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev",
-        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || 11.*@dev"
-    },
-    "replace": {
-        "t3g/svg_sanitizer": "self.version"
+        "typo3/cms-core": "^8.7.13 || ^9.2 || ^10.1 || ^11.5",
+        "typo3/cms-extbase": "^8.7.13 || ^9.2 || ^10.1 || ^11.5",
+        "typo3/cms-install": "^8.7.13 || ^9.2 || ^10.1 || ^11.5"
     },
     "require-dev": {
         "bk2k/extension-helper": "^1.0",
@@ -44,36 +35,36 @@
             "dev-master": "1.0.x-dev"
         },
         "typo3/cms": {
-            "extension-key": "svg_sanitizer",
+            "extension-key": "pdfclean",
             "web-dir": ".build"
         }
     },
     "autoload": {
         "psr-4": {
-            "T3G\\SvgSanitizer\\": "Classes/"
+            "Qbus\\Pdfclean\\": "Classes/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "T3G\\SvgSanitizer\\Tests\\": "Tests/"
+            "Qbus\\Pdfclean\\Tests\\": "Tests/"
         }
     },
     "scripts": {
         "post-autoload-dump": [
             "mkdir -p .build/web/typo3conf/ext/",
-            "[ -L .build/web/typo3conf/ext/svg_sanitizer ] || ln -snvf ../../../../. .build/web/typo3conf/ext/svg_sanitizer"
+            "[ -L .build/web/typo3conf/ext/pdfclean ] || ln -snvf ../../../../. .build/web/typo3conf/ext/pdfclean"
         ],
-        "t3g:cgl": [
+        "qbus:cgl": [
             "php-cs-fixer fix --config Build/.php_cs.dist"
         ],
-        "t3g:test": [
-            "@t3g:test:php:lint",
-            "@t3g:test:php:functional"
+        "qbus:test": [
+            "@qbus:test:php:lint",
+            "@qbus:test:php:functional"
         ],
-        "t3g:test:php:functional": [
+        "qbus:test:php:functional": [
             "phpunit -c Build/FunctionalTest.xml --testsuite \"Functional Test Suite\""
         ],
-        "t3g:test:php:lint": [
+        "qbus:test:php:lint": [
             "phplint -c Build/.phplint.yml"
         ]
     }

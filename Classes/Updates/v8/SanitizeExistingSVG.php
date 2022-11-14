@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Updates\v8;
+namespace Qbus\Pdfclean\Updates\v8;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -21,7 +21,7 @@ namespace T3G\SvgSanitizer\Updates\v8;
  * The TYPO3 project - inspiring people to share!
  */
 
-use T3G\SvgSanitizer\Service\UpdateService;
+use Qbus\Pdfclean\Service\UpdateService;
 use TYPO3\CMS\Core\Registry;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Install\Updates\AbstractUpdate;
@@ -34,7 +34,7 @@ class SanitizeExistingSVG extends AbstractUpdate
     /**
      * @var string
      */
-    protected $title = '[EXT:svg_sanitizer] Scan and sanitize existing SVG files in fileadmin folder';
+    protected $title = '[EXT:pdfclean] Scan and sanitize existing SVG files in fileadmin folder';
 
     /**
      * Checks if an update is needed
@@ -92,17 +92,17 @@ class SanitizeExistingSVG extends AbstractUpdate
     public function performUpdate(array &$databaseQueries, &$customMessage)
     {
         $requestParams = GeneralUtility::_GP('install');
-        if (!isset($requestParams['values']['T3G\SvgSanitizer\Updates\SanitizeExistingSVG']['sanitize'])) {
+        if (!isset($requestParams['values']['Qbus\Pdfclean\Updates\SanitizeExistingSVG']['sanitize'])) {
             return false;
         }
-        $sanitize = (int)$requestParams['values']['T3G\SvgSanitizer\Updates\SanitizeExistingSVG']['sanitize'];
+        $sanitize = (int)$requestParams['values']['Qbus\Pdfclean\Updates\SanitizeExistingSVG']['sanitize'];
 
         if ($sanitize === 1) {
             GeneralUtility::makeInstance(UpdateService::class)->executeUpdate();
         }
 
         // Mark v9 upgrade wizard also as done (bad hack, but required)
-        GeneralUtility::makeInstance(Registry::class)->set('installUpdate', 'T3G\SvgSanitizer\Updates\v9\SanitizeExistingSVG', 1);
+        GeneralUtility::makeInstance(Registry::class)->set('installUpdate', 'Qbus\Pdfclean\Updates\v9\SanitizeExistingSVG', 1);
         $this->markWizardAsDone();
         return true;
     }

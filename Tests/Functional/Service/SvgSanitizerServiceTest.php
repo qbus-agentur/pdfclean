@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Tests\Functional\Service;
+namespace Qbus\Pdfclean\Tests\Functional\Service;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -23,13 +23,13 @@ namespace T3G\SvgSanitizer\Tests\Functional\Service;
 
 use enshrined\svgSanitize\Sanitizer;
 use Symfony\Component\Finder\Finder;
-use T3G\SvgSanitizer\Service\SvgSanitizerService;
+use Qbus\Pdfclean\Service\PdfCleanService;
 use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
- * Class SvgSanitizerService
+ * Class PdfCleanService
  */
-class SvgSanitizerServiceTest extends FunctionalTestCase
+class PdfCleanServiceTest extends FunctionalTestCase
 {
     /**
      * Constructs a test case with the given name.
@@ -40,7 +40,7 @@ class SvgSanitizerServiceTest extends FunctionalTestCase
      */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
-        $this->testExtensionsToLoad[] = 'web/typo3conf/ext/svg_sanitizer';
+        $this->testExtensionsToLoad[] = 'web/typo3conf/ext/pdfclean';
 
         if (!class_exists(Sanitizer::class)) {
             $extensionBasePath = dirname(__DIR__ . '/../../../../');
@@ -76,7 +76,7 @@ class SvgSanitizerServiceTest extends FunctionalTestCase
     public function testThatImagesCanBeCleaned($inputFile, $expectedOutputFile)
     {
         $basePath = dirname(__DIR__ . '/../../../') . '/Fixtures/';
-        $service = new SvgSanitizerService();
+        $service = new PdfCleanService();
         self::assertStringEqualsFile(
             $basePath . $expectedOutputFile,
             $service->sanitizeAndReturnSvgContent(file_get_contents($basePath . $inputFile))

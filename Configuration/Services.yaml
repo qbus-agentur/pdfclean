@@ -4,20 +4,20 @@ services:
     autoconfigure: true
     public: false
 
-  T3G\SvgSanitizer\:
+  Qbus\Pdfclean\:
     resource: '../Classes/*'
 
-  T3G\SvgSanitizer\EventListener\ResourceStorageListener:
+  Qbus\Pdfclean\EventListener\ResourceStorageListener:
     tags:
       - name: event.listener
-        identifier: 'svg-sanitizer/resource-storage-listener-beforeFileAddedEvent'
+        identifier: 'pdfclean/resource-storage-listener-beforeFileAddedEvent'
         method: 'beforeFileAdded'
         event: TYPO3\CMS\Core\Resource\Event\BeforeFileAddedEvent
       - name: event.listener
-        identifier: 'svg-sanitizer/resource-storage-listener-beforeFileReplacedEvent'
+        identifier: 'pdfclean/resource-storage-listener-beforeFileReplacedEvent'
         method: 'beforeFileReplaced'
         event: TYPO3\CMS\Core\Resource\Event\BeforeFileReplacedEvent
       - name: event.listener
-        identifier: 'svg-sanitizer/resource-storage-listener-afterFileContentsSet'
+        identifier: 'pdfclean/resource-storage-listener-afterFileContentsSet'
         method: 'afterFileContentsSet'
         event: TYPO3\CMS\Core\Resource\Event\AfterFileContentsSetEvent

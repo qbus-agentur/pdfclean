@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of the package t3g/svg-sanitizer.
+ * This file is part of the package qbus/pdfclean.
  * For the full copyright and license information, please read the
  * LICENSE file that was distributed with this source code.
  */
 
-namespace T3G\SvgSanitizer\Service;
+namespace Qbus\Pdfclean\Service;
 
 /*
- * This file is part of the TYPO3 extension svg_sanitizer.
+ * This file is part of the TYPO3 extension pdfclean.
  *
  * It is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, either version 2
@@ -27,9 +27,9 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
- * Class SvgSanitizerService
+ * Class PdfCleanService
  */
-class SvgSanitizerService
+class PdfCleanService
 {
     protected $possibleMimeTypes = ['image/svg', 'image/svg+xml', 'application/svg', 'application/svg+xml'];
 
@@ -70,7 +70,7 @@ class SvgSanitizerService
      */
     public function sanitizeAndReturnSvgContent($dirtySVG)
     {
-        $extensionBasePath = ExtensionManagementUtility::extPath('svg_sanitizer');
+        $extensionBasePath = ExtensionManagementUtility::extPath('pdfclean');
         if (!class_exists(Sanitizer::class)) {
             @include 'phar://' . $extensionBasePath . 'Libraries/enshrined-svg-sanitize.phar/vendor/autoload.php';
         }

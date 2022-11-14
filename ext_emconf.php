@@ -1,28 +1,28 @@
 <?php
 /************************************************************************
- * Extension Manager/Repository config file for ext "svg_sanitizer".
+ * Extension Manager/Repository config file for ext "pdfclean".
  ************************************************************************/
 $EM_CONF[$_EXTKEY] = [
-    'title' => 'SVG Sanitizer',
-    'description' => 'Sanitize SVG files on upload',
+    'title' => 'PDF exif clean',
+    'description' => 'Remove meta data from PDF files on upload',
     'category' => 'extension',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.13-11.0.99'
+            'typo3' => '8.7.13-11.5.99'
         ],
         'conflicts' => [],
     ],
     'autoload' => [
         'psr-4' => [
-            'T3G\\SvgSanitizer\\' => 'Classes',
+            'Qbus\\Pdfclean\\' => 'Classes',
         ],
     ],
     'state' => 'stable',
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 1,
-    'author' => 'Frank Nägler',
-    'author_email' => 'frank.naegler@typo3.com',
-    'author_company' => 'TYPO3 GmbH',
-    'version' => '1.0.3',
+    'author' => 'Qbus Internetagentur GmbH',
+    'author_email' => 'tech@qbus.de',
+    'author_company' => 'Qbus Internetagentur GmbH',
+    'version' => '1.0.0',
 ];
