@@ -21,6 +21,13 @@ namespace Qbus\Pdfclean\Service;
  * The TYPO3 project - inspiring people to share!
  */
 
+use Psr\Log\AbstractLogger;
+use Psr\Log\LogLevel;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
 use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -30,7 +37,38 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class PdfCleanService
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
     protected $possibleMimeTypes = ['application/pdf'];
+
+    public function __construct()
+    {
+        //$this->logger = new NullLogger;
+        $this->logger = new class extends AbstractLogger
+        {
+            public function log($level, $message, $context = [])
+            {
+                error_log('[' . $level . '] ' . $this->interpolate($message, $context));
+            }
+            private function interpolate($message, array $context = array())
+            {
+                // build a replacement array with braces around the context keys
+                $replace = array();
+                foreach ($context as $key => $val) {
+                    // check that the value can be cast to string
+                    if (!is_array($val) && (!is_object($val) || method_exists($val, '__toString'))) {
+                        $replace['{' . $key . '}'] = $val;
+                    }
+                }
+
+                // interpolate replacement values into the message and return
+                return strtr($message, $replace);
+            }
+        };
+    }
 
     /**
      * @param string $fileNameAndPath
@@ -84,7 +122,11 @@ class PdfCleanService
             throw new \Exception('Invalid arguments for commandline: ' . $cmdline . ' ' . json_encode($args));
         }
 
-        $process = Process::fromShellCommandline($cmd, null , $env);
+        if (is_callable([Process::class, 'fromShellCommandLine'])) {
+            $process = Process::fromShellCommandline($cmd);
+        } else {
+            $process = new Process($cmd);
+        }
         $process->setTimeout(30);
         $time = microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"];
         //$this->logger->log(LogLevel::INFO, '[' . $time . '] >> ' . $cmd . PHP_EOL);

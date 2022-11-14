@@ -16,6 +16,9 @@ $EM_CONF[$_EXTKEY] = [
         'psr-4' => [
             'Qbus\\Pdfclean\\' => 'Classes',
         ],
+        'classmap' => array(
+            'Resources/Private/PHP',
+        ),
     ],
     'state' => 'stable',
     'uploadfolder' => 0,

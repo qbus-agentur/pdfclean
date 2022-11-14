@@ -50,6 +50,13 @@
         }
     },
     "scripts": {
+        "install-deps": [
+            "cd Resources/Private/PHP && composer install --no-dev && rm -rf composer.lock autoload.php composer/"
+        ],
+        "t3x-pack": [
+            "sh -c 'git archive -o \"${PWD##*/}_`git describe --tags`.zip\" HEAD'",
+            "sh -c 'zip -r -g \"${PWD##*/}_`git describe --tags`.zip\" Resources/Private/PHP/'"
+        ],
         "post-autoload-dump": [
             "mkdir -p .build/web/typo3conf/ext/",
             "[ -L .build/web/typo3conf/ext/pdfclean ] || ln -snvf ../../../../. .build/web/typo3conf/ext/pdfclean"
