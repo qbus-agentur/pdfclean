@@ -6,6 +6,18 @@ Please read the following section carefully for all details.
 ## Important to know
 
 This extension removes all metadata information in uploaded PDF files.
+It requires exiftool and qpdf command line utilities to be available:
+
+.. code-block:: bash
+
+    vendor/bin/typo3 extension:activate nginx_cache
+
+    # Fedora (RPM)
+    sudo dnf install perl-Image-ExifTool qpdf
+
+    # Debian (dpkg)
+    sudo apt install exiftool qpdf
+
 
 ## What this extension does
 
