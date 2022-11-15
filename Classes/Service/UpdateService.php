@@ -53,7 +53,9 @@ class UpdateService
                 $oldFileContent = $file->getContents();
                 $newFileContent = $pdfSanitizerService->cleanAndReturnPdfContent($oldFileContent);
                 if ($oldFileContent !== $newFileContent) {
+                    $pdfSanitizerService->noop = true;
                     $file->setContents($newFileContent);
+                    $pdfSanitizerService->noop = false;
                 }
             }
         }

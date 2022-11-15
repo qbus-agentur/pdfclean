@@ -28,6 +28,7 @@ use Psr\Log\NullLogger;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -35,7 +36,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Class PdfCleanService
  */
-class PdfCleanService
+class PdfCleanService implements SingletonInterface
 {
     /**
      * @var LoggerInterface
@@ -43,6 +44,8 @@ class PdfCleanService
     protected $logger;
 
     protected $possibleMimeTypes = ['application/pdf'];
+
+    public $noop = false;
 
     public function __construct()
     {
@@ -90,6 +93,9 @@ class PdfCleanService
      */
     public function cleanPdfFile($fileNameAndPath, $outputFileNameAndPath = null)
     {
+        if ($this->noop) {
+            return;
+        }
         if ($outputFileNameAndPath === null) {
             $outputFileNameAndPath = $fileNameAndPath;
         }
@@ -111,6 +117,9 @@ class PdfCleanService
      */
     public function cleanAndReturnPdfContent($dirtyPDF)
     {
+        if ($this->noop) {
+            return $dirtyPDF;
+        }
         $tmpFile = GeneralUtility::tempnam('pdf_clean_tmp_');
         file_put_contents($tmpFile, $dirtyPDF);
         $this->cleanPdfFile($tmpFile);
