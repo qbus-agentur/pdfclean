@@ -55,7 +55,7 @@ class CleanExistingPDF implements UpgradeWizardInterface, ConfirmableInterface
     public function getIdentifier(): string
     {
         // this is the origin class name to prevent trouble with class renaming
-        return 'Qbus\Pdfclean\Updates\CleanExistingPNG';
+        return 'Qbus\Pdfclean\Updates\CleanExistingPDF';
     }
 
     /**

@@ -12,7 +12,7 @@ call_user_func(function () {
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['TYPO3\CMS\Core\Utility\GeneralUtility']['moveUploadedFile'][]
         = \Qbus\Pdfclean\Hooks\GeneralUtilityHook::class . '->processMoveUploadedFile';
 
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\Pdfclean\Updates\CleanExistingPDF']
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['Qbus\\Pdfclean\\Updates\\CleanExistingPDF']
         = \Qbus\Pdfclean\Updates\CleanExistingPDF::class;
 
     // The following hook has been removed with v10:
