@@ -1,0 +1,15 @@
+{
+    "name": "qbus/pdfclean-t3x-dependencies",
+    "config": {
+        "vendor-dir": "./"
+    },
+    "authors": [
+        {
+            "name": "Benjamin Franzke",
+            "email": "bfr@qbus.de"
+        }
+    ],
+    "require": {
+		"symfony/process": "4.0.0"
+    }
+}
