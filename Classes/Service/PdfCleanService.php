@@ -81,6 +81,9 @@ class PdfCleanService implements SingletonInterface
      */
     public function isPdfFile($fileNameAndPath)
     {
+        if ($this->noop) {
+            return false;
+        }
         $fileInfo = GeneralUtility::makeInstance(FileInfo::class, $fileNameAndPath);
         return $fileInfo->getExtension() === 'pdf'
             || \in_array(strtolower($fileInfo->getMimeType()), $this->possibleMimeTypes, true);

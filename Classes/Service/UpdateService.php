@@ -50,13 +50,19 @@ class UpdateService
 
             $pdfSanitizerService = GeneralUtility::makeInstance(PdfCleanService::class);
             foreach ($files as $file) {
-                $oldFileContent = $file->getContents();
-                $newFileContent = $pdfSanitizerService->cleanAndReturnPdfContent($oldFileContent);
-                if ($oldFileContent !== $newFileContent) {
+                $localFile = $file->getForLocalProcessing(false);
+                $newFile = GeneralUtility::tempnam('pdf_update_');
+                $success = $pdfSanitizerService->cleanPdfFile($localFile, $newFile);
+
+                if ($success && filesize($newFile)) {
                     $pdfSanitizerService->noop = true;
-                    $file->setContents($newFileContent);
+                    $storage->replaceFile($file, $newFile);
                     $pdfSanitizerService->noop = false;
                 }
+                if (is_file($newFile)) {
+                    GeneralUtility::unlink_tempfile($newFile);
+                }
+                unset($file);
             }
         }
         return true;
