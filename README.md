@@ -20,6 +20,18 @@ sudo dnf install perl-Image-ExifTool qpdf
 sudo apt install libimage-exiftool-perl qpdf
 ```
 
+## Update wizard
+
+Running the update wizard processes roughly 10gb/hour, so make sure
+to run it via SSH/CLI:
+
+```sh
+php -d memory_limit=1G -d error_log=syslog typo3/sysext/core/bin/typo3 upgrade:run 'Qbus\Pdfclean\Updates\CleanExistingPDF'
+```
+
+Also make sure to disable extensions that hook into FAL operations
+and clear caches in between, they will result in a massive slowdown.
+(Example: `fs_media_gallery`)
 
 ## What this extension does
 
