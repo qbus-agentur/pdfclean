@@ -23,7 +23,15 @@ sudo apt install libimage-exiftool-perl qpdf
 ## Update wizard
 
 Running the update wizard processes roughly 10gb/hour, so make sure
-to run it via SSH/CLI:
+to run it via SSH/CLI.
+
+Make a backup first:
+
+```sh
+mkdir -p ../fileadmin_pdf_backup/ && rsync -avz --include '*.pdf' --exclude '*.*' fileadmin/ ../fileadmin_pdf_backup/
+```
+
+Then run the wizard:
 
 ```sh
 php -d memory_limit=1G -d error_log=syslog typo3/sysext/core/bin/typo3 upgrade:run 'Qbus\Pdfclean\Updates\CleanExistingPDF'
