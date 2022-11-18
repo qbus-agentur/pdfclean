@@ -27,5 +27,5 @@ $EM_CONF[$_EXTKEY] = [
     'author' => 'Qbus Internetagentur GmbH',
     'author_email' => 'tech@qbus.de',
     'author_company' => 'Qbus Internetagentur GmbH',
-    'version' => '1.0.0',
+    'version' => '1.0.1',
 ];
