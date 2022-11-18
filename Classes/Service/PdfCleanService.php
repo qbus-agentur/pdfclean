@@ -101,13 +101,24 @@ class PdfCleanService implements SingletonInterface
         }
 
         $intermediateFile = GeneralUtility::tempnam('pdf_intermediate_');
+        $result = $this->run('exiftool -all= -Author= -tagsfromfile @ -title -keywords -subject -description %s -o - > %s', $fileNameAndPath, $intermediateFile);
+        if ($result === false) {
+            GeneralUtility::unlink_tempfile($intermediateFile);
+            return false;
+        }
         $cleanedFile = GeneralUtility::tempnam('pdf_cleaned_');
-
-        $this->run('exiftool -all= -Author= -tagsfromfile @ -title -keywords -subject -description %s -o - > %s', $fileNameAndPath, $intermediateFile);
-        $this->run('qpdf --linearize %s %s', $intermediateFile, $cleanedFile);
-        $this->run('cp -f %s %s', $cleanedFile, $outputFileNameAndPath);
+        $result = $this->run('qpdf --linearize %s %s', $intermediateFile, $cleanedFile);
         GeneralUtility::unlink_tempfile($intermediateFile);
+        if ($result === false) {
+            GeneralUtility::unlink_tempfile($cleanedFile);
+            return false;
+        }
+        $result = $this->run('cp -f %s %s', $cleanedFile, $outputFileNameAndPath);
         GeneralUtility::unlink_tempfile($cleanedFile);
+        if ($result === false) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -122,7 +133,10 @@ class PdfCleanService implements SingletonInterface
         }
         $tmpFile = GeneralUtility::tempnam('pdf_clean_tmp_');
         file_put_contents($tmpFile, $dirtyPDF);
-        $this->cleanPdfFile($tmpFile);
+        if (!$this->cleanPdfFile($tmpFile)) {
+            GeneralUtility::unlink_tempfile($tmpFile);
+            return $dirtyPDF;
+        }
         $cleanedPDF = file_get_contents($tmpFile);
         GeneralUtility::unlink_tempfile($tmpFile);
 
@@ -158,7 +172,7 @@ class PdfCleanService implements SingletonInterface
             });
 
             $this->logger->log(LogLevel::INFO, $prefixNL . 'EXIT Code: ' . $exitcode . ($exitcode == 0 ? ' (success)' : ' (failure)') . PHP_EOL . PHP_EOL);
-            return $output;
+            return $exitcode == 0;
         } catch (ProcessTimedOutException $e) {
             $this->logger->log(LogLevel::ERROR, sprintf('Exception: (%s) %s ', get_class($e), $e->getMessage()));
             return false;
