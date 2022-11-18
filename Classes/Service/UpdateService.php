@@ -39,7 +39,7 @@ class UpdateService
             ->execute()
             ->fetchAll();
 
-        $resourceFactory = ResourceFactory::getInstance();
+        $resourceFactory = GeneralUtility::makeInstance(ResourceFactory::class);
         foreach ($rows as $row) {
             $filter = GeneralUtility::makeInstance(FileExtensionFilter::class);
             $filter->setAllowedFileExtensions(['pdf']);
